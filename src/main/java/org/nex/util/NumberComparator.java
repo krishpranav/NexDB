@@ -31,4 +31,31 @@ public class NumberComparator implements Comparator<Object> {
             }
         }
     }
+
+    public int compare(Object o1, Object o2) {
+        String a = o1.toString();
+        String b = o2.toString();
+
+        int ia = 0;
+        int ib = 0;
+        int nza;
+        int nzb;
+
+        while (true) {
+            nza = nzb = 0;
+
+            char ca = charAt(a, ia);
+            char cb = charAt(b, ib);
+
+            if ((isSpaceChar(ca)) || (ca == '0')) {
+                if (ca == '0') {
+                    nza++;
+                } else {
+                    nza = 0;
+                }
+
+                ca = charAt(a, ++ia);
+            }
+        }
+    }
 }
