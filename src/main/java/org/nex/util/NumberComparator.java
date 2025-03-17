@@ -5,6 +5,7 @@ import static java.lang.Character.isDigit;
 import static java.lang.Character.isSpaceChar;
 
 public class NumberComparator implements Comparator<Object> {
+
     protected static char charAt(String s, int i) {
         if (i >= s.length()) {
             return '\000';
@@ -29,6 +30,22 @@ public class NumberComparator implements Comparator<Object> {
             if (!isDigit(ca)) {
                 return -1;
             }
+
+            if (!isDigit(cb)) {
+                return 1;
+            }
+
+            if (ca < cb) {
+                if (bias == 0) {
+                    bias = -1;
+                }
+            } else if (ca > cb) {
+                if (bias == 0)
+                    bias = 1;
+            } else if ((ca == 0) && (cb == 0))
+                return bias;
+            ia++;
+            ib++;
         }
     }
 
@@ -47,7 +64,7 @@ public class NumberComparator implements Comparator<Object> {
             char ca = charAt(a, ia);
             char cb = charAt(b, ib);
 
-            if ((isSpaceChar(ca)) || (ca == '0')) {
+            while ((isSpaceChar(ca)) || (ca == '0')) {
                 if (ca == '0') {
                     nza++;
                 } else {
@@ -56,6 +73,39 @@ public class NumberComparator implements Comparator<Object> {
 
                 ca = charAt(a, ++ia);
             }
+
+            while ((isSpaceChar(cb)) || (cb == '0')) {
+                if (cb == '0') {
+                    nzb++;
+                } else {
+                    nzb = 0;
+                }
+
+                cb = charAt(b, ++ib);
+            }
+
+            int result;
+
+            if ((isDigit(ca)) && (isDigit(cb)) &&
+                    ((result = compareRight(a.substring(ia), b.substring(ib))) != 0)) {
+                return result;
+            }
+
+            if ((ca == 0) && (cb == 0)) {
+                return nza - nzb;
+            }
+
+            if (ca < cb) {
+                return -1;
+            }
+            
+            if (ca > cb) {
+                return 1;
+            }
+
+            ia++;
+            ib++;
         }
     }
+
 }
