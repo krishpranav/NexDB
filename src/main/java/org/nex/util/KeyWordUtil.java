@@ -17,7 +17,7 @@ public final class KeyWordUtil {
             "TEMPORARY", "THEN", "TO", "TRANSACTION", "TRIGGER", "UNION", "UNIQUE", "UPDATE", "USING", "VACUUM",
             "VALUES", "VIEW", "VIRTUAL", "WHEN", "WHERE", "WITH", "WITHOUT"
     };
-    
+
     private KeyWordUtil() { }
 
     public static boolean isKeyword(String word) {
