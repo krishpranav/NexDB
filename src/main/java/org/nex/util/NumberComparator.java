@@ -98,7 +98,7 @@ public class NumberComparator implements Comparator<Object> {
             if (ca < cb) {
                 return -1;
             }
-            
+
             if (ca > cb) {
                 return 1;
             }
