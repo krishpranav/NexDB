@@ -5,14 +5,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 
-public class ContextUtil {
+public final class ContextUtil {
     private static Context ctx;
-
+    
     private ContextUtil() { }
 
     public static void init(Context context) {
         if (null == context) {
-            throw new IllegalArgumentException("Context shouldn't be null!!!");
+            throw new IllegalArgumentException("context shouldn't be null!");
         }
 
         ctx = context;
@@ -24,5 +24,21 @@ public class ContextUtil {
 
     public static Context getContext() {
         return ctx;
+    }
+
+    public static AssetManager getAssets() {
+        return getContext().getAssets();
+    }
+
+    public static PackageManager getPackageManager() {
+        return getContext().getPackageManager();
+    }
+
+    public static String getPackageName() {
+        return getContext().getPackageName();
+    }
+
+    public static SharedPreferences getSharedPreferences(String name, int mode) {
+        return getContext().getSharedPreferences(name, mode);
     }
 }
