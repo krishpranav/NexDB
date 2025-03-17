@@ -29,10 +29,7 @@ Declare the dependency in Maven:
 </dependency>
 ```
 
-### Using the Master Version
-```bash
-git clone https://github.com/krishpranav/nexdb.git
-```
+### Settings:
 
 Include the following in your **settings.gradle**:
 ```gradle
