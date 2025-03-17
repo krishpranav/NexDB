@@ -7,7 +7,7 @@ import android.content.res.AssetManager;
 
 public final class ContextUtil {
     private static Context ctx;
-    
+
     private ContextUtil() { }
 
     public static void init(Context context) {
