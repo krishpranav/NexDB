@@ -2,13 +2,12 @@ package org.nex.helper;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import javax.security.auth.callback.Callback;
-
 import static org.nex.NexContext.getNexContext;
 
 public final class NexTransactionHelper {
     private static final String LOG_TAG = NexTransactionHelper.class.getSimpleName();
+
+    private NexTransactionHelper() { }
 
     public static void doInTransaction(Callback callback) {
         final SQLiteDatabase database = getNexContext().getNexDb().getDB();
@@ -16,13 +15,25 @@ public final class NexTransactionHelper {
 
         try {
             if (ManifestHelper.isDebugEnabled()) {
-                Log.d(LOG_TAG, "Callable executing within transaction");
+                Log.d(LOG_TAG, "Callback executing within transaction");
             }
 
+            callback.manipulateInTransaction();
+            database.setTransactionSuccessful();
+
+            if (ManifestHelper.isDebugEnabled()) {
+                Log.d(LOG_TAG, "Callback successfully executed within transaction");
+            }
+        } catch (Throwable e) {
+            if (ManifestHelper.isDebugEnabled()) {
+                Log.d(LOG_TAG, "Could execute callback within transaction", e);
+            }
+        } finally {
+            database.endTransaction();
         }
     }
 
     public interface Callback {
-        void maniputeInTransaction();
+        void manipulateInTransaction();
     }
 }
